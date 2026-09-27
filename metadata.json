@@ -1,0 +1,6 @@
+{
+  "name": "Scroll Animated Gallery",
+  "description": "A beautiful, modern scroll-animated image gallery using GSAP and Tailwind CSS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
