@@ -50,7 +50,7 @@ export default function CustomCursor() {
     // Watch for custom cursor states via custom attributes
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      
+
       // 1. If target has a [data-cursor] attribute (e.g. data-cursor="VIEW")
       const cursorText = target.closest("[data-cursor]")?.getAttribute("data-cursor");
       if (cursorText) {
@@ -128,10 +128,13 @@ export default function CustomCursor() {
       {/* Outer Follower Ring */}
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-white/40 pointer-events-none z-[999] flex items-center justify-center font-mono text-[9px] tracking-widest text-neutral-100 font-bold uppercase transition-[background-color,border-color,width,height] backdrop-blur-[1px] select-none text-center"
+        className="pointer-events-none fixed top-0 left-0 z-[999] flex h-8 w-8 items-center justify-center rounded-full border border-white/40 text-center font-mono text-[9px] font-bold tracking-widest text-neutral-100 uppercase backdrop-blur-[1px] transition-[background-color,border-color,width,height] select-none"
         style={{ willChange: "transform" }}
       >
-        <span className="opacity-0 scale-50 transition-all duration-300 pointer-events-none" style={{ opacity: text ? 1 : 0, transform: text ? "scale(1)" : "scale(0.5)" }}>
+        <span
+          className="pointer-events-none scale-50 opacity-0 transition-all duration-300"
+          style={{ opacity: text ? 1 : 0, transform: text ? "scale(1)" : "scale(0.5)" }}
+        >
           {text}
         </span>
       </div>
@@ -139,7 +142,7 @@ export default function CustomCursor() {
       {/* Inner Dot */}
       <div
         ref={cursorDotRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-neutral-100 pointer-events-none z-[999] select-none"
+        className="pointer-events-none fixed top-0 left-0 z-[999] h-1.5 w-1.5 rounded-full bg-neutral-100 select-none"
         style={{ willChange: "transform" }}
       />
     </>

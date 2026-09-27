@@ -8,5 +8,5 @@ export const GALLERY_CATEGORIES = [
   { id: "brutalist", label: "BRUTALIST" },
   { id: "natural", label: "TECTONIC NATURAL" },
   { id: "glass", label: "CRYSTALLINE GLASS" },
-  { id: "minimal", label: "MINIMAL SHADOWS" }
+  { id: "minimal", label: "MINIMAL SHADOWS" },
 ];

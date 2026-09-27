@@ -20,7 +20,7 @@ export function useGalleryController() {
 
   // Model accessors
   const allItems = useMemo(() => modelInstance.getAllItems(), []);
-  
+
   const filteredItems = useMemo(() => {
     return modelInstance.getItemsByCategory(activeCategory);
   }, [activeCategory]);
@@ -106,17 +106,17 @@ export function useGalleryController() {
 
       if (e.key === "ArrowDown" || e.key === "ArrowUp") {
         e.preventDefault();
-        
-        let currentIndex = sections.findIndex(sec => sec.label === currentSectionLocal);
+
+        let currentIndex = sections.findIndex((sec) => sec.label === currentSectionLocal);
         if (currentIndex === -1) currentIndex = 0;
-        
+
         let nextIndex = currentIndex;
         if (e.key === "ArrowDown" && currentIndex < sections.length - 1) {
           nextIndex = currentIndex + 1;
         } else if (e.key === "ArrowUp" && currentIndex > 0) {
           nextIndex = currentIndex - 1;
         }
-        
+
         if (nextIndex !== currentIndex) {
           const targetEl = document.getElementById(sections[nextIndex].id);
           if (targetEl) {
@@ -138,7 +138,7 @@ export function useGalleryController() {
 
   useEffect(() => {
     if (!lenisRef.current) return;
-    
+
     if (selectedItemId !== null) {
       lenisRef.current.stop();
       document.body.style.overflow = "hidden";
