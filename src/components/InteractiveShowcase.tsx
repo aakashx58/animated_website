@@ -17,7 +17,9 @@ interface InteractiveShowcaseProps {
 
 export default function InteractiveShowcase({ onSelectItem }: InteractiveShowcaseProps) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [filteredItems, setFilteredItems] = useState<GalleryItem[]>(() => modelInstance.getAllItems());
+  const [filteredItems, setFilteredItems] = useState<GalleryItem[]>(() =>
+    modelInstance.getAllItems(),
+  );
   const containerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -39,7 +41,7 @@ export default function InteractiveShowcase({ onSelectItem }: InteractiveShowcas
             start: "top 90%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
 
       // Section header title / filter menu fade-up
@@ -56,7 +58,7 @@ export default function InteractiveShowcase({ onSelectItem }: InteractiveShowcas
             start: "top 85%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
 
       // Initial grid cards staggered animation on scroll
@@ -75,7 +77,7 @@ export default function InteractiveShowcase({ onSelectItem }: InteractiveShowcas
             start: "top 85%",
             toggleActions: "play none none none",
           },
-        }
+        },
       );
     }, containerRef);
 
@@ -135,7 +137,7 @@ export default function InteractiveShowcase({ onSelectItem }: InteractiveShowcas
           duration: 0.65,
           stagger: 0.03,
           ease: "power3.out",
-        }
+        },
       );
     }, containerRef);
 
@@ -191,22 +193,21 @@ export default function InteractiveShowcase({ onSelectItem }: InteractiveShowcas
   return (
     <section
       ref={containerRef}
-      className="relative py-28 px-4 md:px-12 bg-[#050505] border-t border-white/5 select-none z-20"
+      className="relative z-20 border-t border-white/5 bg-[#050505] px-4 py-28 select-none md:px-12"
     >
-      <div className="max-w-7xl mx-auto">
-        
+      <div className="mx-auto max-w-7xl">
         {/* Statistics Header Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16 md:mb-24 stats-grid">
+        <div className="stats-grid mb-16 grid grid-cols-2 gap-6 md:mb-24 lg:grid-cols-4">
           {useMemo(() => modelInstance.getCalculatedStatistics(), []).map((stat, idx) => (
             <div
               key={idx}
-              className="stats-card p-6 bg-[#111111]/60 border border-white/10 rounded-2xl flex flex-col justify-between h-36 font-mono hover:border-white/20 transition-colors shadow-md"
+              className="stats-card flex h-36 flex-col justify-between rounded-2xl border border-white/10 bg-[#111111]/60 p-6 font-mono shadow-md transition-colors hover:border-white/20"
             >
-              <div className="flex justify-between items-start text-zinc-500">
-                <span className="text-[10px] uppercase tracking-widest">{stat.label}</span>
-                <BarChart className="w-4 h-4 text-neutral-600" />
+              <div className="flex items-start justify-between text-zinc-500">
+                <span className="text-[10px] tracking-widest uppercase">{stat.label}</span>
+                <BarChart className="h-4 w-4 text-neutral-600" />
               </div>
-              <div className="text-4xl md:text-5xl font-light font-display text-white tracking-tighter">
+              <div className="font-display text-4xl font-light tracking-tighter text-white md:text-5xl">
                 {stat.value}
               </div>
             </div>
@@ -214,26 +215,26 @@ export default function InteractiveShowcase({ onSelectItem }: InteractiveShowcas
         </div>
 
         {/* Section Title */}
-        <div className="showcase-header flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 border-b border-white/10 pb-8">
+        <div className="showcase-header mb-12 flex flex-col items-start justify-between gap-6 border-b border-white/10 pb-8 md:flex-row md:items-end">
           <div>
-            <div className="flex items-center gap-2 mb-2 font-mono text-[10px] text-zinc-500 uppercase tracking-widest">
-              <Filter className="w-3.5 h-3.5" /> SPECIFIED CLASSIFICATIONS
+            <div className="mb-2 flex items-center gap-2 font-mono text-[10px] tracking-widest text-zinc-500 uppercase">
+              <Filter className="h-3.5 w-3.5" /> SPECIFIED CLASSIFICATIONS
             </div>
-            <h2 className="text-3xl md:text-5xl font-light font-display text-neutral-100 tracking-tight leading-none">
-              Exhibition <span className="font-serif italic text-neutral-400">Portal</span>
+            <h2 className="font-display text-3xl leading-none font-light tracking-tight text-neutral-100 md:text-5xl">
+              Exhibition <span className="font-serif text-neutral-400 italic">Portal</span>
             </h2>
           </div>
 
           {/* Interactive Filters List */}
-          <div className="flex flex-wrap gap-2 max-w-full">
+          <div className="flex max-w-full flex-wrap gap-2">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2.5 rounded-full text-[10px] font-mono tracking-widest uppercase transition-all duration-300 pointer-events-auto cursor-pointer border ${
+                className={`pointer-events-auto cursor-pointer rounded-full border px-4 py-2.5 font-mono text-[10px] tracking-widest uppercase transition-all duration-300 ${
                   activeCategory === cat.id
-                    ? "bg-[#F5F5F0] text-black border-transparent"
-                    : "bg-black border-white/10 text-neutral-400 hover:text-white hover:border-white/20"
+                    ? "border-transparent bg-[#F5F5F0] text-black"
+                    : "border-white/10 bg-black text-neutral-400 hover:border-white/20 hover:text-white"
                 }`}
               >
                 {cat.label}
@@ -245,7 +246,7 @@ export default function InteractiveShowcase({ onSelectItem }: InteractiveShowcas
         {/* Main Grid View */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 perspective-container"
+          className="perspective-container grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
           style={{ transformStyle: "preserve-3d" }}
         >
           {filteredItems.map((item, idx) => (
@@ -258,42 +259,42 @@ export default function InteractiveShowcase({ onSelectItem }: InteractiveShowcas
               style={{ transformStyle: "preserve-3d", contentVisibility: "auto" }}
             >
               {/* Leaning Wrapper */}
-              <div className="card-tilt-wrapper bg-[#111111]/60 border border-white/10 p-4 rounded-2xl transition-all duration-300 hover:border-white/20 flex flex-col justify-between h-[360px] relative overflow-hidden shadow-xl shadow-black/25">
+              <div className="card-tilt-wrapper relative flex h-[360px] flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#111111]/60 p-4 shadow-xl shadow-black/25 transition-all duration-300 hover:border-white/20">
                 {/* Image Frame */}
-                <div className="relative h-[220px] rounded-xl overflow-hidden bg-[#0a0a0a] border border-white/5">
+                <div className="relative h-[220px] overflow-hidden rounded-xl border border-white/5 bg-[#0a0a0a]">
                   <img
                     src={item.imageUrl}
                     alt={item.title}
-                    className="card-image-shift absolute -top-[8%] -left-[8%] w-[116%] h-[116%] max-w-none object-cover"
+                    className="card-image-shift absolute -top-[8%] -left-[8%] h-[116%] w-[116%] max-w-none object-cover"
                     referrerPolicy="no-referrer"
                   />
-                  <div className="absolute inset-0 bg-neutral-950/20 group-hover:bg-transparent transition-colors duration-500" />
-                  
+                  <div className="absolute inset-0 bg-neutral-950/20 transition-colors duration-500 group-hover:bg-transparent" />
+
                   {/* Floating ID Layer */}
-                  <div className="absolute top-3 left-3 px-2 py-0.5 bg-black/80 border border-white/10 blur-none rounded text-[9px] font-mono text-zinc-300">
+                  <div className="absolute top-3 left-3 rounded border border-white/10 bg-black/80 px-2 py-0.5 font-mono text-[9px] text-zinc-300 blur-none">
                     {item.id}
                   </div>
                 </div>
 
                 {/* Info Text Column */}
-                <div className="mt-4 flex flex-col justify-between flex-grow">
-                  <div className="flex items-center gap-1.5 text-[9px] font-mono text-zinc-500 uppercase">
-                    <Compass className="w-3 h-3 text-zinc-600" />
+                <div className="mt-4 flex flex-grow flex-col justify-between">
+                  <div className="flex items-center gap-1.5 font-mono text-[9px] text-zinc-500 uppercase">
+                    <Compass className="h-3 w-3 text-zinc-600" />
                     <span>{item.location}</span>
                   </div>
-                  
-                  <div className="flex justify-between items-end mt-1">
+
+                  <div className="mt-1 flex items-end justify-between">
                     <div>
-                      <h4 className="text-base font-normal font-display text-white tracking-tight leading-tight group-hover:text-neutral-200 transition-colors">
+                      <h4 className="font-display text-base leading-tight font-normal tracking-tight text-white transition-colors group-hover:text-neutral-200">
                         {item.title}
                       </h4>
-                      <span className="text-[9px] font-mono text-zinc-500 tracking-wider">
+                      <span className="font-mono text-[9px] tracking-wider text-zinc-500">
                         {item.year} // {item.category}
                       </span>
                     </div>
 
-                    <div className="w-7 h-7 rounded-full bg-black border border-white/10 flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:border-white/35 transition-colors">
-                      <Layers className="w-3.5 h-3.5" />
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full border border-white/10 bg-black text-zinc-400 transition-colors group-hover:border-white/35 group-hover:text-white">
+                      <Layers className="h-3.5 w-3.5" />
                     </div>
                   </div>
                 </div>
@@ -304,11 +305,10 @@ export default function InteractiveShowcase({ onSelectItem }: InteractiveShowcas
 
         {/* Empty State */}
         {filteredItems.length === 0 && (
-          <div className="py-24 text-center text-zinc-500 font-mono text-xs">
+          <div className="py-24 text-center font-mono text-xs text-zinc-500">
             NO ASSET CODES MATCH THIS FILTER TYPE
           </div>
         )}
-
       </div>
     </section>
   );

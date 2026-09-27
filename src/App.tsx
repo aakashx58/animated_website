@@ -16,17 +16,11 @@ import { useGalleryController } from "./controllers/useGalleryController";
 import { Compass } from "lucide-react";
 
 export default function App() {
-  const {
-    loading,
-    setLoading,
-    selectedItem,
-    scrollProgress,
-    currentSection,
-    handleSelectItem,
-  } = useGalleryController();
+  const { loading, setLoading, selectedItem, scrollProgress, currentSection, handleSelectItem } =
+    useGalleryController();
 
   return (
-    <div className="relative w-full min-h-screen bg-[#050505] text-[#F5F5F0]">
+    <div className="relative min-h-screen w-full bg-[#050505] text-[#F5F5F0]">
       {/* Noise and Vignette overlay */}
       <div className="noise-bg" />
 
@@ -36,33 +30,32 @@ export default function App() {
       {/* Main Exhibition Layout */}
       {!loading && (
         <div className="fade-in-container relative">
-          
           {/* Custom Cursor follower */}
           <CustomCursor />
 
           {/* Persistent Sidebar Scroll HUD */}
-          <div className="fixed bottom-8 left-8 z-[40] font-mono select-none hidden sm:flex items-center gap-6 pointer-events-none bg-neutral-950/85 border border-zinc-900/60 py-3 px-5 rounded-full backdrop-blur-md">
+          <div className="pointer-events-none fixed bottom-8 left-8 z-[40] hidden items-center gap-6 rounded-full border border-zinc-900/60 bg-neutral-950/85 px-5 py-3 font-mono backdrop-blur-md select-none sm:flex">
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-neutral-100 animate-pulse" />
-              <span className="text-[9px] text-zinc-400 uppercase tracking-widest">
-                SECTION:
-              </span>
-              <span className="text-[10px] text-white tracking-widest font-semibold uppercase">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-neutral-100" />
+              <span className="text-[9px] tracking-widest text-zinc-400 uppercase">SECTION:</span>
+              <span className="text-[10px] font-semibold tracking-widest text-white uppercase">
                 {currentSection}
               </span>
             </div>
-            
-            <div className="w-[1px] h-4 bg-zinc-800" />
-            
+
+            <div className="h-4 w-[1px] bg-zinc-800" />
+
             <div className="flex items-center gap-2 text-[10px]">
               <span className="text-[9px] text-zinc-400">INDEXED AT:</span>
-              <span className="text-white font-semibold">{scrollProgress.toString().padStart(3, "0")}%</span>
+              <span className="font-semibold text-white">
+                {scrollProgress.toString().padStart(3, "0")}%
+              </span>
             </div>
           </div>
 
-          <div className="fixed bottom-8 right-8 z-[40] hidden sm:flex pointer-events-none">
-            <div className="flex items-center gap-3 text-[10px] font-mono bg-neutral-950/85 border border-zinc-900/60 py-3 px-5 rounded-full backdrop-blur-md">
-              <Compass className="w-3.5 h-3.5 text-zinc-400 animate-[spin_12s_linear_infinite]" />
+          <div className="pointer-events-none fixed right-8 bottom-8 z-[40] hidden sm:flex">
+            <div className="flex items-center gap-3 rounded-full border border-zinc-900/60 bg-neutral-950/85 px-5 py-3 font-mono text-[10px] backdrop-blur-md">
+              <Compass className="h-3.5 w-3.5 animate-[spin_12s_linear_infinite] text-zinc-400" />
               <span className="text-zinc-500">EXHIBIT NO. 12</span>
             </div>
           </div>
@@ -91,11 +84,7 @@ export default function App() {
           <FooterSection />
 
           {/* 6. High-end Detail Specifications Modal */}
-          <DetailModal
-            item={selectedItem}
-            onClose={() => handleSelectItem(null)}
-          />
-
+          <DetailModal item={selectedItem} onClose={() => handleSelectItem(null)} />
         </div>
       )}
     </div>

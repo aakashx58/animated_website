@@ -47,10 +47,14 @@ export default function HorizontalScroll({ onSelectItem }: HorizontalScrollProps
       });
 
       // Background giant moving typography parallax
-      pinTimeline.to(".hz-scrolling-bg-text", {
-        x: () => `+=${window.innerWidth * 0.3}`,
-        ease: "none",
-      }, "<");
+      pinTimeline.to(
+        ".hz-scrolling-bg-text",
+        {
+          x: () => `+=${window.innerWidth * 0.3}`,
+          ease: "none",
+        },
+        "<",
+      );
 
       // Set individual image movement within card masks for smooth parallax
       horizontalItems.forEach((_, idx) => {
@@ -66,7 +70,7 @@ export default function HorizontalScroll({ onSelectItem }: HorizontalScrollProps
               end: () => `+=${track.scrollWidth}`,
               scrub: true,
             },
-          }
+          },
         );
       });
     }, triggerRef);
@@ -75,10 +79,10 @@ export default function HorizontalScroll({ onSelectItem }: HorizontalScrollProps
   }, []);
 
   return (
-    <div ref={triggerRef} className="relative bg-[#050505] z-20 overflow-hidden">
+    <div ref={triggerRef} className="relative z-20 overflow-hidden bg-[#050505]">
       {/* Background Giant Text - Parallax moving behind cards */}
-      <div className="absolute inset-y-0 right-0 flex items-center justify-center pointer-events-none select-none z-[1] overflow-hidden">
-        <h3 className="hz-scrolling-bg-text text-[28vw] font-bold font-display text-white/[0.02] whitespace-nowrap uppercase tracking-widest translate-x-[-15%]">
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-[1] flex items-center justify-center overflow-hidden select-none">
+        <h3 className="hz-scrolling-bg-text translate-x-[-15%] font-display text-[28vw] font-bold tracking-widest whitespace-nowrap text-white/[0.02] uppercase">
           SILENT EXHIBIT SILENT EXHIBIT
         </h3>
       </div>
@@ -86,21 +90,23 @@ export default function HorizontalScroll({ onSelectItem }: HorizontalScrollProps
       {/* Track that translates horizontally */}
       <div
         ref={trackRef}
-        className="horizontal-scroll-container h-screen flex items-center gap-12 md:gap-24 px-12 md:px-24 z-10 relative"
+        className="horizontal-scroll-container relative z-10 flex h-screen items-center gap-12 px-12 md:gap-24 md:px-24"
       >
         {/* Intro Section Card */}
-        <div className="w-[300px] md:w-[450px] shrink-0 flex flex-col justify-center h-4/5 select-none text-neutral-100 pr-8 border-r border-white/10">
-          <div className="font-mono text-[10px] tracking-widest text-[#a8a196] uppercase mb-4 flex items-center gap-2">
-            <Layers className="w-3.5 h-3.5" /> SECTION 01 — HORIZONTAL TRACERY
+        <div className="flex h-4/5 w-[300px] shrink-0 flex-col justify-center border-r border-white/10 pr-8 text-neutral-100 select-none md:w-[450px]">
+          <div className="mb-4 flex items-center gap-2 font-mono text-[10px] tracking-widest text-[#a8a196] uppercase">
+            <Layers className="h-3.5 w-3.5" /> SECTION 01 — HORIZONTAL TRACERY
           </div>
-          <h2 className="text-4xl md:text-6xl font-light font-display tracking-tight leading-none mb-6">
+          <h2 className="mb-6 font-display text-4xl leading-none font-light tracking-tight md:text-6xl">
             The Sinuous <br />
-            <span className="font-serif italic font-normal text-neutral-400">Canvases</span>
+            <span className="font-serif font-normal text-neutral-400 italic">Canvases</span>
           </h2>
-          <p className="font-sans text-xs md:text-sm text-neutral-400 font-light leading-relaxed mb-6">
-            Rotate files. Shift viewports. Experience structure and natural forces stretching along an infinite planar threshold. Each monographical sheet carries an original geolocation coordinate and material analysis.
+          <p className="mb-6 font-sans text-xs leading-relaxed font-light text-neutral-400 md:text-sm">
+            Rotate files. Shift viewports. Experience structure and natural forces stretching along
+            an infinite planar threshold. Each monographical sheet carries an original geolocation
+            coordinate and material analysis.
           </p>
-          <div className="flex items-center gap-4 text-xs font-mono text-neutral-500 tracking-wider">
+          <div className="flex items-center gap-4 font-mono text-xs tracking-wider text-neutral-500">
             <span>EXHIBITS: 02 — 06</span>
             <span>•</span>
             <span>GSAP ACCEL x1.0</span>
@@ -113,44 +119,44 @@ export default function HorizontalScroll({ onSelectItem }: HorizontalScrollProps
             key={item.id}
             onClick={() => onSelectItem(item.id)}
             data-cursor="DISCOVER"
-            className="group w-[320px] md:w-[420px] h-[550px] md:h-[620px] shrink-0 relative flex flex-col justify-between bg-[#111111]/60 border border-white/10 p-6 md:p-8 rounded-2xl select-none hover:border-white/30 transition-all duration-500 cursor-pointer overflow-hidden backdrop-blur-sm shadow-xl shadow-black/25"
+            className="group relative flex h-[550px] w-[320px] shrink-0 cursor-pointer flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-[#111111]/60 p-6 shadow-xl shadow-black/25 backdrop-blur-sm transition-all duration-500 select-none hover:border-white/30 md:h-[620px] md:w-[420px] md:p-8"
           >
             {/* Top Index */}
-            <div className="flex justify-between items-center text-[10px] font-mono text-neutral-500 z-10 pointer-events-none">
+            <div className="pointer-events-none z-10 flex items-center justify-between font-mono text-[10px] text-neutral-500">
               <span className="text-neutral-400">RECORD NO. {item.id}</span>
-              <span className="px-2.5 py-1 bg-black/60 border border-white/5 rounded-full tracking-widest uppercase">
+              <span className="rounded-full border border-white/5 bg-black/60 px-2.5 py-1 tracking-widest uppercase">
                 {item.category}
               </span>
             </div>
 
             {/* Middle Image Container with Parallax Effect */}
-            <div className="my-6 flex-grow overflow-hidden rounded-xl relative bg-[#0a0a0a] border border-white/5">
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/60 via-transparent to-transparent z-10" />
+            <div className="relative my-6 flex-grow overflow-hidden rounded-xl border border-white/5 bg-[#0a0a0a]">
+              <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#050505]/60 via-transparent to-transparent" />
               <img
                 src={item.imageUrl}
                 alt={item.title}
-                className={`hz-image-${index} absolute top-0 bottom-0 left-[-15%] w-[130%] h-full max-w-none object-cover group-hover:scale-105 transition-transform duration-700 ease-out`}
+                className={`hz-image-${index} absolute top-0 bottom-0 left-[-15%] h-full w-[130%] max-w-none object-cover transition-transform duration-700 ease-out group-hover:scale-105`}
                 referrerPolicy="no-referrer"
               />
             </div>
 
             {/* Bottom Details */}
-            <div className="z-10 text-neutral-100 flex flex-col gap-2 pointer-events-none">
-              <div className="flex items-center gap-1 text-[10px] font-mono text-neutral-400">
-                <MapPin className="w-3 h-3 text-neutral-500" />
+            <div className="pointer-events-none z-10 flex flex-col gap-2 text-neutral-100">
+              <div className="flex items-center gap-1 font-mono text-[10px] text-neutral-400">
+                <MapPin className="h-3 w-3 text-neutral-500" />
                 <span>{item.location}</span>
               </div>
-              <div className="flex justify-between items-end">
+              <div className="flex items-end justify-between">
                 <div>
-                  <h4 className="text-lg md:text-xl font-normal font-display tracking-tight leading-tight">
+                  <h4 className="font-display text-lg leading-tight font-normal tracking-tight md:text-xl">
                     {item.title}
                   </h4>
-                  <p className="text-[10px] font-mono text-neutral-500 tracking-wider">
+                  <p className="font-mono text-[10px] tracking-wider text-neutral-500">
                     {item.material}
                   </p>
                 </div>
-                <div className="w-9 h-9 rounded-full bg-black/80 group-hover:bg-white border border-white/10 group-hover:border-transparent flex items-center justify-center text-neutral-400 group-hover:text-black transition-all duration-300">
-                  <Eye className="w-4 h-4" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-black/80 text-neutral-400 transition-all duration-300 group-hover:border-transparent group-hover:bg-white group-hover:text-black">
+                  <Eye className="h-4 w-4" />
                 </div>
               </div>
             </div>
@@ -158,11 +164,13 @@ export default function HorizontalScroll({ onSelectItem }: HorizontalScrollProps
         ))}
 
         {/* End Section Card */}
-        <div className="w-[200px] md:w-[350px] shrink-0 flex flex-col justify-center h-4/5 select-none text-neutral-500 font-mono pr-12 text-center items-center">
-          <div className="w-12 h-12 rounded-full bg-[#111] border border-white/10 flex items-center justify-center mb-4">
-            <Grid className="w-5 h-5 text-neutral-400 animate-pulse" />
+        <div className="flex h-4/5 w-[200px] shrink-0 flex-col items-center justify-center pr-12 text-center font-mono text-neutral-500 select-none md:w-[350px]">
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-[#111]">
+            <Grid className="h-5 w-5 animate-pulse text-neutral-400" />
           </div>
-          <div className="text-[10px] tracking-[0.25em] font-medium text-neutral-400 mb-2">END HORIZONTAL PATH</div>
+          <div className="mb-2 text-[10px] font-medium tracking-[0.25em] text-neutral-400">
+            END HORIZONTAL PATH
+          </div>
           <p className="text-[9px] leading-relaxed text-neutral-600 uppercase">
             Scrolling onwards triggers the vertical perspective matrix of the archive series.
           </p>

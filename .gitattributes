@@ -1,0 +1,10 @@
+# Normalize line endings to LF in the working tree.
+# Prettier is configured with "endOfLine": "lf", so without this, Git would
+# check files out as CRLF on Windows and every file would appear modified.
+* text=auto eol=lf
+
+# Keep lockfiles and generated assets out of Git's text conversion.
+package-lock.json -diff
+*.png binary
+*.jpg binary
+*.svg binary
